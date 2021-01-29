@@ -15,6 +15,11 @@ def folder_subsampler(input_path, output_path, file_percentage, random_file_samp
     # create the folder structure
     # select and copy the files
     for in_folder, file_list in dir_files_dict.items():
+        if input_path[-1] == '/':
+            input_path = input_path[:-1]
+        if output_path[-1] == '/':
+            output_path = output_path[:-1]
+
         out_folder = in_folder.replace(input_path, output_path)
         Path(out_folder).mkdir(parents=True, exist_ok=True)
         # reduce file list
