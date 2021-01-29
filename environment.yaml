@@ -1,0 +1,7 @@
+name: FolderSubsampler
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - fire
+prefix: /Users/linda/miniconda2/envs/FolderSubsampler
