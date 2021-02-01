@@ -11,12 +11,16 @@ def folder_subsampler(input_path, output_path, nb_classes):
         output_p = Path(out_path)
         output_p.mkdir(parents=True, exist_ok=True)
 
-        f = [(dirpath, dirnames, filenames) for dirpath, dirnames, filenames in os.walk(in_path)]
-        to_copy = sorted(f[0][1])[:nb_classes]
+        f = [(dirpath, dirnames, filenames) for dirpath, dirnames, filenames in os.walk(in_path)][0][1]
+        # check if folder names are ints, because then the sorting is not numerical (0,1,2) but '1','10', etc
+        if f[0].isdigit():
+            f = [int(i) for i in f]
+
+        to_copy = sorted(f)[:nb_classes]
 
         # create the folder structure
         for subfolder in to_copy:
-            shutil.copytree(os.path.join(in_path, subfolder), os.path.join(out_path, subfolder))
+            shutil.copytree(os.path.join(in_path, str(subfolder)), os.path.join(out_path, str(subfolder)))
 
 
 if __name__ == '__main__':
