@@ -1,34 +1,22 @@
 import fire
 from pathlib import Path
-import random
 import os
 import shutil
 
 
-def folder_subsampler(input_path, output_path, file_percentage, random_file_sample=False):
-    output_p = Path(output_path)
-    output_p.mkdir(parents=True, exist_ok=True)
+def folder_subsampler(input_path, output_path, nb_classes):
+    input_paths = input_path.split(',')
+    for in_path in input_paths:
+        out_path = os.path.join(output_path, os.path.basename(in_path))
+        output_p = Path(out_path)
+        output_p.mkdir(parents=True, exist_ok=True)
 
-    f = [(dirpath, dirnames, filenames) for dirpath, dirnames, filenames in os.walk(input_path)]
-    dir_files_dict = {tup[0]: sorted([i for i in tup[2] if i[0] != '.']) for tup in f if len(tup[1]) == 0}
+        f = [(dirpath, dirnames, filenames) for dirpath, dirnames, filenames in os.walk(in_path)]
+        to_copy = sorted(f[0][1])[:nb_classes]
 
-    # create the folder structure
-    # select and copy the files
-    for in_folder, file_list in dir_files_dict.items():
-        if input_path[-1] == '/':
-            input_path = input_path[:-1]
-        if output_path[-1] == '/':
-            output_path = output_path[:-1]
-
-        out_folder = in_folder.replace(input_path, output_path)
-        Path(out_folder).mkdir(parents=True, exist_ok=True)
-        # reduce file list
-        if random_file_sample:
-            samples_files = random.sample(file_list, max(1, int(file_percentage * len(file_list))))
-        else:
-            samples_files = file_list[:max(1, int(file_percentage * len(file_list)))]
-        for file in samples_files:
-            shutil.copy2(os.path.join(in_folder, file), os.path.join(out_folder, file))
+        # create the folder structure
+        for subfolder in to_copy:
+            shutil.copytree(os.path.join(in_path, subfolder), os.path.join(out_path, subfolder))
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-name: FolderSubsampler
+name: DataSubsampler
 channels:
   - conda-forge
   - defaults
