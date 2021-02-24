@@ -5,7 +5,7 @@ import os
 import shutil
 
 
-def file_subsampler(input_path, output_path, file_percentage, random_file_sample=False):
+def file_subsampler(input_path, output_path, file_percentage, random_file_sample=False, symlink=False):
     output_p = Path(output_path)
     output_p.mkdir(parents=True, exist_ok=True)
 
@@ -28,7 +28,12 @@ def file_subsampler(input_path, output_path, file_percentage, random_file_sample
         else:
             samples_files = file_list[:max(1, int(file_percentage * len(file_list)))]
         for file in samples_files:
-            shutil.copy2(os.path.join(in_folder, file), os.path.join(out_folder, file))
+            if symlink:
+                print(f'Creating symlink for {os.path.join(in_folder, file)}')
+                os.symlink(os.path.join(in_folder, file), os.path.join(out_folder, file))
+            else:
+                print(f'Copying file {os.path.join(in_folder, file)}')
+                shutil.copy2(os.path.join(in_folder, file), os.path.join(out_folder, file))
 
 
 if __name__ == '__main__':

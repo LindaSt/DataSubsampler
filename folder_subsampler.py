@@ -20,8 +20,12 @@ def folder_subsampler(input_path, output_path, nb_classes, symlink=False):
 
         # create the folder structure
         for subfolder in to_copy:
-            print(f"Copying foler {subfolder}")
-            shutil.copytree(os.path.join(in_path, str(subfolder)), os.path.join(out_path, str(subfolder)))
+            if symlink:
+                print(f'Creating symlink for folder {os.path.join(in_path, str(subfolder))}')
+                os.symlink(os.path.join(in_path, str(subfolder)), os.path.join(out_path, str(subfolder)))
+            else:
+                print(f'Copying folder {os.path.join(in_path, str(subfolder))}')
+                shutil.copytree(os.path.join(in_path, str(subfolder)), os.path.join(out_path, str(subfolder)))
 
 
 if __name__ == '__main__':

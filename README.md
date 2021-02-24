@@ -50,6 +50,9 @@ Commandline arguments:
 
 `--nb_classes`: Number of classes that should be copied to the new dataset
 
+`--symlink`: Optional. Default = False. Doesn't copy the folders, only creates a symlink
+
+
 Example command:
 `python folder_subsampler.py --input-path /path/to/my_dataset/train,/path/to/my_dataset/val --output-path /path/to/my_small_dataset/ --nb_classes 100`
 
@@ -65,6 +68,9 @@ Commandline arguments:
 `--file_percentage`: Percentage to be sampled (between 0 and 1)
 
 `--random_file_sample`: Optional (default False). If set to true, random files are sampled instead of taking the first X% (after sorting).
+
+`--symlink`: Optional. Default = False. Doesn't copy the folders, only creates a symlink
+
 
 Example command:
 `python file_subsampler.py --input-path /path/to/my_dataset --output-path /path/to/my_small_dataset --file_percentage 0.01 --random-file-sample`
