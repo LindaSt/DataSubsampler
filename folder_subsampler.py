@@ -4,7 +4,7 @@ import os
 import shutil
 
 
-def folder_subsampler(input_path, output_path, nb_classes):
+def folder_subsampler(input_path, output_path, nb_classes, symlink=False):
     input_paths = input_path.split(',')
     for in_path in input_paths:
         out_path = os.path.join(output_path, os.path.basename(in_path))
@@ -20,6 +20,7 @@ def folder_subsampler(input_path, output_path, nb_classes):
 
         # create the folder structure
         for subfolder in to_copy:
+            print(f"Copying foler {subfolder}")
             shutil.copytree(os.path.join(in_path, str(subfolder)), os.path.join(out_path, str(subfolder)))
 
 
