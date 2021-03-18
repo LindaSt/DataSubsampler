@@ -52,7 +52,6 @@ Commandline arguments:
 
 `--symlink`: Optional. Default = False. Doesn't copy the folders, only creates a symlink
 
-
 Example command:
 `python folder_subsampler.py --input-path /path/to/my_dataset/train,/path/to/my_dataset/val --output-path /path/to/my_small_dataset/ --nb_classes 100`
 
@@ -70,6 +69,10 @@ Commandline arguments:
 `--random_file_sample`: Optional (default False). If set to true, random files are sampled instead of taking the first X% (after sorting).
 
 `--symlink`: Optional. Default = False. Doesn't copy the folders, only creates a symlink
+
+`--train-only`: Optional. Default = False. Only does the subsample on the training set (but still creates a copy / symlink for the other folders)
+
+`--file-ending`: Optional. Default = `".gxl"`. Only folders that contain files of this type will be copied.
 
 
 Example command:
